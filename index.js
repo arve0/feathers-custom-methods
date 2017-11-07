@@ -33,20 +33,10 @@ function createWrapper (service, name) {
       return
     }
 
-    // convert from { "0": "asdf", "1": 123 } to ["asdf", 123]
-    const args = toArray(hook.data.arguments)
-
-    return service[name].apply(service, args)
+    return service[name].apply(service, hook.data.arguments)
       .then(result => {
         hook.result = result
         return hook
       }) // do not catch, let errors propagate
   }
-}
-
-function toArray (args) {
-  return Object.keys(args)
-    .map(k => parseInt(k))
-    .sort()
-    .map(k => args[k])
 }

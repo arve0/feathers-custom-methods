@@ -22,9 +22,13 @@ export default function customMethodsClient (options = {}) {
 
 function createWrapper (service, name) {
   return function () {
+    // JSON.stringify(arguments) does not yield an array, but rather an object:
+    // { "0": value, "1": value2, ... }
+    let args = Array.from(arguments)
+
     return service.create({
       method: name,
-      arguments
+      arguments: args
     })
   }
 }

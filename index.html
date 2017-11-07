@@ -30,10 +30,10 @@
     }))
 
     let output = document.getElementById('output')
-    app.service('email').send('test@me.com', 1234).then(res => {
-      output.innerText = 'Test OK. Please close browser.'
+    app.service('email').send('test@me.com', 1234, [true, null]).then(res => {
+      output.innerText = `${res} \n Please close browser.`
     }).catch(err => {
-      document.getElementById('output').innerText = `Test FAILED with ${err}.\n Please close browser.`
+      document.getElementById('output').innerText = `${err} \n Please close browser.`
       output.style.backgroundColor = 'lightcoral'
     })
   </script>

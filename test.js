@@ -4,26 +4,29 @@ const rest = require('feathers-rest')
 const hooks = require('feathers-hooks')
 const customMethods = require('./')
 const open = require('open')
+const assert = require('assert')
+
+const expectedArgs = [
+  'test@me.com',
+  1234,
+  [true, null]
+]
 
 const emailService = {
   create () {},
-  send (address, phone) {
-    // everything OK if called with send('test@me.com', 1234) from client
-    if (address === 'test@me.com' && phone === 1234) {
-      setTimeout(() => {
-        console.log('test OK')
-        process.exit(0)
-      }, 10)
-      return Promise.resolve('test OK')
+  send () {
+    // everything OK if called with expectedArgs
+    try {
+      let args = Array.from(arguments)
+      assert.deepEqual(args, expectedArgs)
+    } catch (err) {
+      console.error(`Test failed with ${err.message}.`)
+      setTimeout(() => process.exit(1), 10)  // make sure failed request is sent back to client
+      return Promise.reject(new Error(`Test failed with ${err.message}.`))
     }
-    // fail
-    setTimeout(() => {
-      console.log('test FAILED')
-      console.log(`send was called with ${Array.from(arguments).join(', ')}`)
-      console.log(`expected test@me.com, 1234`)
-      process.exit(1)
-    }, 10)
-    return Promise.reject(new Error('test FAILED'))
+    console.log('Test OK.')
+    setTimeout(() => process.exit(0), 10)
+    return Promise.resolve('Test OK.')
   },
   setup (app, path) {}
 }

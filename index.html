@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>feathers custom methods test</title>
+  <style>
+    #output {
+      padding: 1em;
+      font-size: 300%;
+      min-height: 0;
+      background-color: lightgreen;
+    }
+  </style>
+</head>
+<body>
+  <div id="output"></div>
+  <script src="/node_modules/feathers-client/dist/feathers.js"></script>
+  <script type=module>
+    import customMethods from './client.js'
+
+    const app = feathers()
+    app.configure(feathers.rest().fetch(fetch))
+
+    app.configure(customMethods({
+      methods: {
+        email: ['send']
+      }
+    }))
+
+    let output = document.getElementById('output')
+    app.service('email').send('test@me.com', 1234).then(res => {
+      output.innerText = 'Test OK. Please close browser.'
+    }).catch(err => {
+      document.getElementById('output').innerText = `Test FAILED with ${err}.\n Please close browser.`
+      output.style.backgroundColor = 'lightcoral'
+    })
+  </script>
+</body>
+</html>

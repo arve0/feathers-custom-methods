@@ -1,6 +1,6 @@
 {
   "name": "feathers-custom-methods",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "add custom methods to your feathersjs services",
   "main": "index.js",
   "scripts": {

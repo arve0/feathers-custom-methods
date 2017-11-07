@@ -28,13 +28,12 @@
   },
   "homepage": "https://github.com/arve0/feathers-custom-methods#readme",
   "devDependencies": {
-    "feathers": "^2.2.3",
-    "feathers-hooks": "^2.1.2",
-    "feathers-rest": "^1.8.1"
-  },
-  "dependencies": {
     "body-parser": "^1.18.2",
+    "feathers": "^2.2.3",
     "feathers-client": "^2.4.0",
+    "feathers-hooks": "^2.1.2",
+    "feathers-rest": "^1.8.1",
     "open": "0.0.5"
-  }
+  },
+  "dependencies": {}
 }

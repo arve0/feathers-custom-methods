@@ -36,7 +36,7 @@ app.service('email').send = function (address, subject, content) {
 Client side, add the client plugin:
 
 ```js
-import customMethods from 'feathers-cucstom-methods/client'
+import customMethods from 'feathers-custom-methods/client'
 
 app.configure(customMethods({
   methods: {

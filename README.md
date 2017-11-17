@@ -11,7 +11,7 @@ npm i feathers-custom-methods
 ```
 
 ## Usage
-Server side, configure the plugin:
+Server side, configure the plugin and implement the method:
 
 ```js
 const customMethods = require('feathers-custom-methods')
@@ -33,7 +33,7 @@ app.service('email').send = function (address, subject, content) {
 }
 ```
 
-Client side, add the client plugin:
+Client side, configure the client plugin:
 
 ```js
 import customMethods from 'feathers-cucstom-methods/client'
@@ -56,7 +56,7 @@ app.service('email').send(address, subject, content)
   })
 ```
 
-The code above will call `app.service('email').send` with the same arguments server side.
+The code above will call `app.service('email').send` server side with the same arguments.
 
 ## HTTP requests
 feathers-custom-methods uses the [create](https://docs.feathersjs.com/api/services.html#createdata-params) method to send data from client to server. In other words, the call `service.send(arg1, arg2)` is equivalent to:
@@ -68,10 +68,10 @@ service.create({
 })
 ```
 
-This means that you can call custom methods through HTTP requests like this:
+Which means that you can call custom methods through HTTP requests like this:
 
 ```
-curl -X POST -d '{ "method": "send", "arguments": ["name@domain.com", "subject", "content"] }' http://localhost:3030/email --header "Content-Type:application/json"
+curl -X POST -H "Content-Type:application/json" -d '{ "method": "send", "arguments": ["name@domain.com", "subject", "content"] }' http://localhost:3030/email
 ```
 
 ## Development
@@ -79,7 +79,7 @@ curl -X POST -d '{ "method": "send", "arguments": ["name@domain.com", "subject",
 npm test # will start node test.js
 ```
 
-This will open a browser window. You must navigate back to terminal yourself. For more, see [test.js](test.js).
+The test will open in a browser window. When the test ends, you must navigate back to the terminal. For more information, see [test.js](test.js) and [index.html](index.html).
 
 ## License
 MIT
